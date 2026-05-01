@@ -1,11 +1,41 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>Redirecting...</title>
-  <meta http-equiv="refresh" content="0;url=home.html">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css" />
+    <title>홈 페이지</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        body {
+            font-family: "Pretendard", sans-serif;
+            text-align: center;
+        }
+        button {
+            background-color: #0059ff; /* 기본 배경색 */
+            color: white;              /* 글자색 */
+            padding: 10px 20px;        /* 여백 */
+            border: none;              /* 테두리 제거 */
+            border-radius: 5px;        /* 모서리 둥글게 */
+            cursor: pointer;           /* 마우스 커서 변경 */
+            font-size: 16px;           /* 글자 크기 */
+            font-family: "Pretendard", sans-serif; /* 버튼에도 폰트 적용 */
+            transition: background-color 0.3s ease; /* hover 효과 */
+        }
+
+        button:hover {
+            background-color: #000da0; /* 마우스 올렸을 때 색상 */
+        }
+        p {
+            color: #0059ff;
+        }
+        h1 {
+            color: #00ccff;
+        }
+    </style>
 </head>
 <body>
-  <p>홈으로 이동 중...</p>
+    <h1>홈 페이지</h1>
+    <p>여기는 홈 페이지입니다. 아래 버튼을 클릭하여 스네이크 게임으로 이동하세요.</p>
+    <a href="snake.html"><button>스네이크 게임으로 이동</button></a>
 </body>
 </html>
