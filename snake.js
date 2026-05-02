@@ -7,6 +7,7 @@ let direction = null;
 let currentScore = 0;
 let gameOver = false;
 let speed = 3; // 속도 빠르게 (픽셀 단위)
+let useButtonControls = false; // 버튼 모드 여부
 
 let food = {
     x: Math.floor(Math.random() * 20) * box,
@@ -141,6 +142,50 @@ function restartGame() {
         y: Math.floor(Math.random() * 20) * box
     };
     gameOver = false;
+}
+
+// 🔹 스와이프 제스처 (누른 상태에서 연속 방향 변경 가능)
+let startX, startY;
+canvas.addEventListener("touchstart", e => {
+    if (useButtonControls) return;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+});
+
+canvas.addEventListener("touchmove", e => {
+    if (useButtonControls) return;
+    let moveX = e.touches[0].clientX;
+    let moveY = e.touches[0].clientY;
+    let dx = moveX - startX;
+    let dy = moveY - startY;
+
+    // 가로 움직임
+    if (Math.abs(dx) > Math.abs(dy)) {
+        if (dx > 10 && direction !== "LEFT") direction = "RIGHT";   // 바로 반대(LEFT)만 막음
+        else if (dx < -10 && direction !== "RIGHT") direction = "LEFT"; // 바로 반대(RIGHT)만 막음
+    } 
+    // 세로 움직임
+    else {
+        if (dy > 10 && direction !== "UP") direction = "DOWN";      // 바로 반대(UP)만 막음
+        else if (dy < -10 && direction !== "DOWN") direction = "UP"; // 바로 반대(DOWN)만 막음
+    }
+
+    // 기준점 갱신 → 손가락을 누른 상태에서 연속적으로 방향 변경 가능
+    startX = moveX;
+    startY = moveY;
+});
+
+
+// 🔹 버튼 모드 토글
+function toggleControls() {
+    const controls = document.getElementById("mobile-controls");
+    if (controls.style.display === "none") {
+        controls.style.display = "flex";
+        useButtonControls = true;
+    } else {
+        controls.style.display = "none";
+        useButtonControls = false;
+    }
 }
 
 loop();
