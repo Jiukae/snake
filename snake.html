@@ -14,10 +14,14 @@
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.6), 0 0 40px rgba(0, 255, 255, 0.4);
         }
         body {
+            transform: scale(0.8);   /* 80% 크기로 줄임 */
+            transform-origin: top center; /* 기준점: 위쪽 중앙 */
 
             background: url("background.jpg") no-repeat center center;
             background-size: cover; 
             color: #0ff; /* 네온 블루 글씨 */
+            overflow: hidden;
+            height: 100%; /* 화면 전체 높이 */
         }
         h2 {
             color: #0ff;
@@ -53,18 +57,11 @@
             from { text-shadow: 0 0 5px #00ccff; }
             to { text-shadow: 0 0 20px #00ccff; }
         }
-        .title {
-            text-align: left;        /* 왼쪽 정렬 */
-            margin-left: 20px;       /* 살짝 여백 */
-            color: #00ccff;
-            font-size: 28px;
-            text-shadow: 0 0 10px #00ccff;
-        }
 
         .score {
             text-align: center;      /* 중앙 정렬 */
             margin-top: -40px;       /* 제목과 겹치지 않게 위치 조정 */
-            color: #0059ff;
+            color: #0059ff; 
             font-size: 20px;
             font-weight: bold;
         }
@@ -73,20 +70,60 @@
             gap: 3px;                  /* 버튼 사이 간격 */
                      /* 위쪽 여백 */
         }
+        .title {
+            text-align: left;
+            margin-left: 20px;
+            color: #00ccff;
+            font-size: 28px;
+            text-shadow: 0 0 10px #00ccff;
+        }
+
+        .score {
+            text-align: center;
+            margin-top: -40px;
+            color: #0059ff;
+            font-size: 60px;
+            font-weight: bold;
+        }
+
+        .game-wrapper {
+            display: flex;          /* 캔버스와 버튼을 가로로 배치 */
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;              /* 캔버스와 버튼 사이 간격 */
+            margin: 0 auto;
+            width: fit-content;     /* 내용 크기에 맞게 */
+        }
+
+        #gameCanvas {
+            margin-left: 40px;      /* 캔버스를 왼쪽으로 조금 옮김 */
+        }
+
+        #mobile-controls {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #mobile-controls button {
+            font-size: 24px;
+            margin: 5px;
+            padding: 10px 20px;
+        }
+
+
+        .toggle-wrapper {
+            text-align: center;
+            margin: 15px 0;
+        }
+
         .buttons {
-            display: flex;              /* 가로 배치 */
-            justify-content: center;    /* 중앙 정렬 */
-            gap: 20px;                 /* 버튼 사이 간격 */
-            margin-top: 20px;          /* 위쪽 여백 */
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
         }
         .buttons a {
-            text-decoration: none;     /* 링크 밑줄 제거 */
-        }
-        .score {
-            text-align: center;      /* 중앙 정렬 */
-            color: #0059ff;
-            font-size: 40px;
-            font-weight: bold;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -98,7 +135,25 @@
     <p style="font-size: 20px;">Score</p>
     <div style="height: 10px;"></div> <!-- 제목과 점수 사이 간격 -->
     <p class = "score"><span id="score">0</span></p>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div class="game-wrapper">
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+
+        <!-- 버튼 모드 컨트롤 -->
+        <div id="mobile-controls" style="display:none;">
+            <button onclick="direction='UP'">▲</button>
+            <div>
+                <button onclick="direction='LEFT'">◀</button>
+                <button onclick="direction='RIGHT'">▶</button>
+            </div>
+            <button onclick="direction='DOWN'">▼</button>
+        </div>
+    </div>
+
+<!-- 모드 전환 버튼 -->
+    <div class="toggle-wrapper">
+        <button onclick="toggleControls()">버튼 모드 켜기/끄기</button>
+    </div>
+
     <div class = "buttons">
         <a href="snake.html"><button>재시작</button></a>
         <a href="index.html"><button>홈으로 이동</button></a>
