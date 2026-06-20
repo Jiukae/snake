@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css" rel="stylesheet">
-    <title>홈 페이지</title>
+    <title>Snake Game by JIUKAE</title>
     <link rel="icon" type="image/png" href="logo.png">
     <style>
         body {
@@ -11,19 +11,19 @@
             display: flex;
             height: 100vh;
             font-family: 'NanumSquare', sans-serif;
+            flex-direction: column;
         }
 
                 /* 왼쪽 사이드바 */
         header {
             width: 100%;                  /* 전체 가로 폭 */
-            height: 70px;                 /* 헤더 높이 */
+            position: fixed;              /* 화면에 고정 */
             background-color: #f0f4ff;    /* 배경색 */
             display: flex;
             justify-content: space-between; /* 좌우 배치 */
             align-items: center;            /* 세로 중앙 정렬 */
             padding: 0 20px;               /* 좌우 여백 */
             box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 아래 그림자 */
-            position: fixed;               /* 화면 상단 고정 */
             top: 0;
             left: 0;
             z-index: 1000;                 /* 다른 요소보다 위에 표시 */
@@ -45,12 +45,15 @@
             margin-right: 30px; /* 오른쪽 끝에서 떨어지게 */
         }
 
-        header button img {
+        .headbt img {
             width: 40px;
             height: 40px;
             object-fit: contain;
+            max-width: 40px;
+            max-height: 40px;
+            transition: filter 0.3s ease;
         }
-        header button {
+        .headbt {
             background-color: transparent;
             border: none;
             cursor: pointer;
@@ -58,21 +61,26 @@
             width: 100%;
             transition: filter 0.3s ease;
         }
-        header button img {
-            max-width: 40px;
-            max-height: 40px;
-            transition: filter 0.3s ease;
-        }
-        header button:hover img {
+        .headbt:hover img {
             filter: brightness(1.2);
         }
-        .logo
-        {
+        .logo {
             width: 280px;
             height: auto;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            transition: filter 0.3s ease;
+        }
+        .logo img {
+            max-width: 280px;
+            max-height: auto;
+            transition: filter 0.3s ease;
+            object-fit: contain;
         }
         /* 오른쪽 메인 영역 */
         .main {
+            margin-top: 70px; /* 헤더 높이만큼 상단 여백 */
             flex: 1;
             display: flex;
             justify-content: center; /* 가로 중앙 */
@@ -98,21 +106,59 @@
         .main button:hover {
             background-color: #000da0;
         }
+        .menu {
+            position: relative;
+        }
+
+        .submenu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+
+            min-width: 150px;
+
+            display: flex;
+            flex-direction: column;
+
+            opacity: 0;
+            visibility: hidden;
+
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+
+            transition: 0.2s;
+        }
+
+        .submenu a {
+            padding: 12px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .submenu a:hover {
+            background: #f0f4ff;
+        }
+
+        .menu:hover .submenu {
+            opacity: 1;
+            visibility: visible;
+        }
 
     </style>
 </head>
 <body>
     <header>
-    <div class="left-group">
-        <img class="logo" src="thelogo.png" alt="로고">
-        <a href="more.html"><button><img src="more-icon.png" alt="더보기"></button></a>
-    </div>
+        <div class="left-group">
+            <a href="index.html"><button class="logo"><img src="thelogo.png" alt="로고"></button></a>
+            <button class="headbt"><img src="more-icon.png" alt="더보기"></button>
+        </div>
 
-    <div class="right-group">
-        <a href="ranking.html"><button><img src="ranking-icon.png" alt="랭킹"></button></a>
-        <a href="shop.html"><button><img src="shop-icon.png" alt="상점"></button></a>
-        <button class="mode"><img src="mode-icon.png" alt="모드"></button>
-    </div>
+        <div class="right-group">
+            <a href="ranking.html"><button class="headbt"><img src="ranking-icon.png" alt="랭킹"></button></a>
+            <a href="shop.html"><button class="headbt"><img src="shop-icon.png" alt="상점"></button></a>
+            <button class="mode headbt"><img src="mode-icon.png" alt="모드"></button>
+        </div>
     </header>
 
 
